@@ -1,12 +1,12 @@
 {
   "name": "xhEditor",
   "main": "dist/xheditor.js",
-  "version": "1.2.3",
+  "version": "1.0.0",
   "homepage": "https://github.com/cipchk/xhEditor",
   "authors": [
     "cipchk <cipchk@gmail.com>"
   ],
-  "description": "xhEditor是一个基于jQuery开发的简单迷你并且高效的在线可视化HTML编辑器。",
+  "description": "xhEditor是一个基于jQuery开发的简单迷你并且高效的在线可视化HTML编辑器。 ",
   "keywords": [
     "xhEditor"
   ],
