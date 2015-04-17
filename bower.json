@@ -1,7 +1,7 @@
 {
   "name": "xhEditor",
-  "main": "xhEditor.js",
-  "version": "1.2.2",
+  "main": "dist/xheditor.js",
+  "version": "1.2.3",
   "homepage": "https://github.com/cipchk/xhEditor",
   "authors": [
     "cipchk <cipchk@gmail.com>"
@@ -10,9 +10,9 @@
   "keywords": [
     "xhEditor"
   ],
-  "license": "MIT",
+  "license": "LGPL",
   "ignore": [
-    "demo",
+    "demos",
     "release",
     "jquery",
     "node_modules",
