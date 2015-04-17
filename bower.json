@@ -12,6 +12,8 @@
   ],
   "license": "MIT",
   "ignore": [
+    "demo",
+    "release",
     "jquery",
     "node_modules",
     "bower_components",
@@ -23,6 +25,8 @@
     "xheditor_plugins",
     "xheditor_skin",
     "test",
-    "tests"
+    "tests",
+    "*.html",
+    "xheditor.js"
   ]
 }
