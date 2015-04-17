@@ -10,7 +10,7 @@
   "keywords": [
     "xhEditor"
   ],
-  "license": "LGPL",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "jquery",
