@@ -5,8 +5,29 @@
 (function(XHEDITOR, $, undefined){
 
 	var agent=navigator.userAgent.toLowerCase();
+
+	// 去掉 `$.browser` 依赖，解决 jQuery 2.x 版本无须再引用 jquery-migrate.js。
+	var browserMath = /(chrome)[ \/]([\w.]+)/.exec( agent ) ||
+	    /(webkit)[ \/]([\w.]+)/.exec( agent ) ||
+	    /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( agent ) ||
+	    /(msie) ([\w.]+)/.exec( agent ) ||
+	    agent.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( agent ) ||
+	    [],
+	    browser = {};
+	    
+	if ( browserMath ) {
+	    browser[ browserMath.browser ] = true;
+	    browser.version = browserMath.version;
+	}
+	// Chrome is Webkit, but Webkit is also Safari.
+	if ( browser.chrome ) {
+	    browser.webkit = true;
+	} else if ( browser.webkit ) {
+	    browser.safari = true;
+	}
+
 	var bMobile=/mobile/i.test(agent),
-		browser=$.browser,browerVer=parseFloat(browser.version),
+		browerVer=parseFloat(browser.version),
 		isIE=browser.msie,
 		isMozilla=browser.mozilla,
 		isWebkit=browser.webkit,
@@ -24,6 +45,11 @@
 		var s=this.src;
 		if(s.match(/xheditor[^\/]*\.js/i)){editorRoot=s.replace(/[\?#].*$/, '').replace(/(^|[\/\\])[^\/]*$/, '$1');return false;}
 	});
+	// editorRoot 编辑器根目录变量，默认是根据script所指向的URL来自动确认，但如果采用AMD加载方式，会出现未找到，所以提供两种方式来保证可以找得到编辑器的根目录。
+	if (!editorRoot) {
+	    editorRoot = window.editorRoot || $('#xheditor_config').attr('data-editorRoot');
+	}
+
 	if(isIE){
 		//ie6 缓存背景图片
 		try{document.execCommand('BackgroundImageCache', false, true );}

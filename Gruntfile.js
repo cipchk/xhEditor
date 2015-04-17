@@ -13,7 +13,8 @@ module.exports = function(grunt) {
     clean: ["dist", "temp"],
     concat: {
       dist: {
-        src: ['src/core.js', 'src/lang.js', 'src/main.js'],
+        // 默认为中文语言包
+        src: ['src/core.js', 'src/lang.js', 'src/main.js', 'xheditor_lang/zh-cn.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
@@ -31,6 +32,31 @@ module.exports = function(grunt) {
       }
     },
     copy: {
+      dist: {
+        options: {
+          processContentExclude: ['**/*.gif','**/*.png','**/*.swf'],
+          processContent: function(content, filename){
+            var pkg = grunt.config( "pkg" );
+            if(/\.min\.js$/i.test(filename)){
+              content = content.replace(/@VERSION/g,pkg.version);
+              content = content.replace(/@BUILDDATE/g,grunt.template.today("yymmdd"));
+            }
+            else if(/\.html$/i.test(filename)){
+              
+              content = content.replace(/xheditor\.js"/g, pkg.name + '-' + pkg.version + '.min.js"');
+            }
+            return content;
+          }
+        },
+        files: [
+          {src:['jquery/**'], dest: 'dist/'},
+          {src:['xheditor_lang/**'], dest: 'dist/'},
+          {src:['xheditor_skin/**'], dest: 'dist/'},
+          {src:['xheditor_emot/**'], dest: 'dist/'},
+          {src:['xheditor_plugins/**'], dest: 'dist/'},
+          {src:['CHANGE.md', 'LGPL-LICENSE.txt', 'README.md', 'THANKS.md', 'TODO.md', 'wizard.html'], dest: 'dist/'}
+        ]
+      },
       release: {
         options: {
           processContentExclude: ['**/*.gif','**/*.png','**/*.swf'],
